@@ -1,0 +1,22 @@
+name: Check Linting
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  verify:
+    #run on wich OS virtual machine
+    runs-on: ubuntu-latest
+
+    steps:
+      # check out on the current branch
+      - uses: actions/checkout@v4
+      # set up Flutter environment
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+      # steps that will be executed in the virtual machine
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
